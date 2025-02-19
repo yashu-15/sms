@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule SMS</title>
+</head>
+<body>
+  <h1>Schedule an SMS</h1>
+  <form id="dateForm">
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required>
+    <label for="date">Choose a date and time:</label>
+    <input type="datetime-local" id="date" name="date" required>
+    <button type="submit">Schedule SMS</button>
+  </form>
+  
+  <script>
+    document.getElementById('dateForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const phone = document.getElementById('phone').value;
+      const dateTime = document.getElementById('date').value;
+      fetch('https://sms-scheduler-backend.onrender.com/schedule-sms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phone, date: dateTime })
+      }).then(response => alert('SMS scheduled!'));
+    });
+  </script>
+</body>
+</html>
